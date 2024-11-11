@@ -1,0 +1,5 @@
+tmux/plugins
+tmux/plugins/*
+
+nvim/node_modules
+nvim/node_modules/*
