@@ -46,12 +46,18 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
+    enabled = true,
     dependencies = {
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
     },
 
     opts = function(_, opts)
-      local format_kinds = opts.formatting.format
+      -- Safely handle opts.formatting.format to avoid nil errors
+      local format_kinds = opts.formatting and opts.formatting.format or function(_, item)
+        return item
+      end
+
+      opts.formatting = opts.formatting or {}
       opts.formatting.format = function(entry, item)
         format_kinds(entry, item)
         return require("tailwindcss-colorizer-cmp").formatter(entry, item)
